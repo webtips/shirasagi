@@ -1,11 +1,3 @@
-<%
-
-  forms = Cms::Form.site(@cur_site).allow(:read, @cur_user, site: @cur_site)
-    .map { |item| [item.name, item.id] }
-  nodes = Article::Node::Page.site(@cur_site).allow(:read, @cur_user, site: @cur_site)
-    .map { |item| [item.name, item.id] }
-
-%>
 <dl class="see">
   <dt><%= @model.t :name %></dt>
   <dd><%= f.text_field :name %></dd>
@@ -14,10 +6,10 @@
   <dd><%= f.number_field :order %></dd>
 
   <dt><%= @model.t :form_id %><%= @model.tt :form_id %></dt>
-  <dd><%= f.select :form_id, forms, include_blank: '' %></dd>
+  <dd><%= f.select :form_id, @item.form_options, include_blank: '' %></dd>
 
   <dt><%= @model.t :node_id %><%= @model.tt :node_id %></dt>
-  <dd><%= f.select :node_id, nodes, include_blank: '' %></dd>
+  <dd><%= f.select :node_id, @item.node_options, include_blank: '' %></dd>
 
   <dt><%= @model.t :import_url %><%= @model.tt :import_url %></dt>
   <dd><%= f.text_field :import_url %></dd>

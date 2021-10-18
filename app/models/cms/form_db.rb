@@ -58,6 +58,14 @@ class Cms::FormDb
     end
   end
 
+  def form_options
+    Cms::Form.where(site_id: @cur_site.id, sub_type: 'static').map { |item| [item.name, item.id] }
+  end
+
+  def node_options
+    Article::Node::Page.where(site_id: @cur_site.id).map { |item| [item.name, item.id] }
+  end
+
   def pages
     pages = Article::Page.site(site).where(form_id: id)
     node ? pages.node(node) : pages
