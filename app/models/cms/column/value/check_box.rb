@@ -23,6 +23,14 @@ class Cms::Column::Value::CheckBox < Cms::Column::Value::Base
     end
   end
 
+  def import_csv_cell(value)
+    self.values = value.to_s.split("\n").filter_map { |v| v.strip }
+  end
+
+  def export_csv_cell
+    values.join("\n")
+  end
+
   private
 
   def validate_value

@@ -9,4 +9,8 @@ class Cms::Column::Base
   def alignment_options
     %w(flow center).map { |v| [ I18n.t("cms.options.alignment.#{v}"), v ] }
   end
+
+  def db_form_type
+    { type: 'input' }
+  end
 end

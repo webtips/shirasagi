@@ -1,11 +1,15 @@
 <% @ad = Sys::Setting.first %>
 <% if @ad.try(:files).present? %>
+  <%
+    width = @ad.width ? @ad.width.to_i : 360
+    time = @ad.time ? @ad.time.to_i : 3
+  %>
   <script>
   $(function(){
     $('.bxslider').bxSlider({
       auto: true,
-      slideWidth: <%= @ad.width.to_i %>,
-      pause: <%= @ad.time.to_i * 1000 %>,
+      slideWidth: <%= width %>,
+      pause: <%= time * 1000 %>,
       mode: 'horizontal',
       touchEnabled: false
     });
@@ -20,15 +24,15 @@
         <% contents = capture do %>
           <% if file.try(:image) %>
             <% if file.link_url.present? %>
-              <%= link_to image_tag(file.image.url, width: @ad.width.to_i), sns_redirect_path(ref: file.link_url, back_to: request.url), target: "_blank", rel: "noopener" %>
+              <%= link_to image_tag(file.image.url, width: width), sns_redirect_path(ref: file.link_url, back_to: request.url), target: "_blank", rel: "noopener" %>
             <% else %>
-              <%= link_to image_tag(file.image.url, width: @ad.width.to_i), "#" %>
+              <%= link_to image_tag(file.image.url, width: width), "#" %>
             <% end %>
           <% elsif file.try(:image?) %>
             <% if file.link_url.present? %>
-              <%= link_to image_tag(file.url, width: @ad.width.to_i), sns_redirect_path(ref: file.link_url, back_to: request.url), target: "_blank", rel: "noopener" %>
+              <%= link_to image_tag(file.url, width: width), sns_redirect_path(ref: file.link_url, back_to: request.url), target: "_blank", rel: "noopener" %>
             <% else %>
-              <%= link_to image_tag(file.url, width: @ad.width.to_i), "#" %>
+              <%= link_to image_tag(file.url, width: width), "#" %>
             <% end %>
           <% end %>
         <% end %>

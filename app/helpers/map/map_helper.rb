@@ -191,7 +191,7 @@ module Map::MapHelper
     h = []
     h << %(<div class="maker-info" data-id="#{item.id}">)
     h << %(<p class="name">#{item.name}</p>)
-    h << %(<p class="address">#{item.address}</p>)
+    h << %(<p class="address">#{item.address}</p>) if item.try(:address)
     h << %(<p class="show">#{link_to t('ss.links.show'), item.url}</p>)
     h << %(</div>)
 

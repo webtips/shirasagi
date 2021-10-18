@@ -1784,11 +1784,16 @@ dl.mod-cms-parent_crumbs {
     font-weight: normal;
     text-align: left;
     .tippy-content {
+      max-height: 300px;
       padding: 15px;
+      overflow-y: auto;
     }
     ul {
       margin: 0;
       padding: 0;
+    }
+    li {
+      white-space: pre-wrap;
     }
   }
 }
@@ -2741,6 +2746,24 @@ form .CodeMirror {
     width: auto;
   }
 }
+// form-example
+.form-example-head {
+  display: inline-block;
+  margin: 10px 0 0 20px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+.form-example-body {
+  display: none;
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: 1px solid #eee;
+  background: #f9f9f9;
+  font-family: monospace;
+  white-space: pre-wrap;
+  // word-spacing: .25rem;
+}
 
 // -------------------------------------------------------------------------------------------------
 // form
@@ -2835,6 +2858,9 @@ form .CodeMirror {
     margin-top: 1px;
     margin-left: 38px;
   }
+}
+#errorSyntaxChecker {
+  margin: 10px 0;
 }
 .field_with_errors {
   input, textarea, select {
@@ -3311,7 +3337,8 @@ body.ss-ajax-in-iframe {
 }
 .addon-view .column-value {
   padding: 10px 15px;
-  background: #f2f2f2;
+  border: 1px solid #eee;
+  background: #f9f9f9;
 }
 
 .column-value .column-value-header {
@@ -3321,6 +3348,10 @@ body.ss-ajax-in-iframe {
   padding: 5px 0;
   .column-value-header-group {
     margin-bottom: 10px;
+    .required {
+      display: inline-block;
+      margin-left: 10px;
+    }
   }
   label {
     color: #a0522d;
@@ -3328,6 +3359,10 @@ body.ss-ajax-in-iframe {
   }
   .column-value-header-group:first-child {
     margin-right: auto;
+    label {
+      padding-left: 8px;
+      border-left: 4px solid #c18b80;
+    }
   }
   .column-value-header-group ~ .column-value-header-group {
     margin-right: 16px;
@@ -3376,7 +3411,7 @@ body.ss-ajax-in-iframe {
     margin: 10px 0;
   }
   .table-editor {
-    overflow-x: scroll;
+    overflow-x: auto;
     .control {
       @include transition(.3s);
       padding: 0;
