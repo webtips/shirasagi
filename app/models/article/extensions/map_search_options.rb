@@ -14,11 +14,11 @@ class Article::Extensions::MapSearchOptions < Array
       when Array then
         ary = object.dup
         ary = ary.map { |v| v.deep_stringify_keys }
-        ary = ary.filter_map do |options|
+        ary = ary.map do |options|
           name = options['name']
           values = options['values'].to_s.split(/\R/).compact
           (name.present? && values.present?) ? { name: name, values: values } : nil
-        end
+        end.compact
         self.new(ary).mongoize
       else object
       end

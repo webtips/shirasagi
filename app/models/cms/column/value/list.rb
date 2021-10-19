@@ -22,7 +22,7 @@ class Cms::Column::Value::List < Cms::Column::Value::Base
   end
 
   def import_csv_cell(value)
-    self.lists = value.to_s.split("\n").filter_map { |v| v.strip }
+    self.lists = value.to_s.split("\n").map { |v| v.strip }.compact
   end
 
   def export_csv_cell

@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 describe "article_node_form_table", type: :feature, dbscope: :example, js: true do
-  let!(:site) { cms_site }
-  let!(:name) { "name-#{unique_id}" }
-  let!(:basename) { "basename-#{unique_id}" }
-  let!(:layout) { create_cms_layout }
-  let!(:form) { create(:cms_form, cur_site: site, sub_type: 'static') }
-  let!(:col1) { create(:cms_column_select, cur_site: site, cur_form: form, order: 5) }
-  let!(:col2) { create(:cms_column_radio_button, cur_site: site, cur_form: form, order: 6) }
-  let!(:col3) { create(:cms_column_check_box, cur_site: site, cur_form: form, order: 7) }
-  let!(:article_node) { create :article_node_page, cur_site: site }
+  let(:site) { cms_site }
+  let(:name) { "name-#{unique_id}" }
+  let(:basename) { "basename-#{unique_id}" }
+  let(:form) { create!(:cms_form, cur_site: site, state: 'public', sub_type: 'static') }
+  let!(:col1) { create!(:cms_column_select, cur_site: site, cur_form: form, required: 'optional', order: 5) }
+  let!(:col2) { create!(:cms_column_radio_button, cur_site: site, cur_form: form, required: 'optional', order: 6) }
+  let!(:col3) { create!(:cms_column_check_box, cur_site: site, cur_form: form, required: 'optional', order: 7) }
+  let(:layout) { create_cms_layout }
+  let!(:article_node) { create!(:article_node_page, cur_site: site, layout_id: layout) }
 
   context "basic crud" do
     before { login_cms_user }
@@ -46,7 +46,10 @@ describe "article_node_form_table", type: :feature, dbscope: :example, js: true 
       expect(first('#addon-basic')).to have_text(name)
 
       # edit
-      click_on I18n.t("ss.links.edit")
+      #click_on I18n.t("ss.links.edit")
+      node = Article::Node::FormTable.first
+      visit edit_cms_node_path(site.id, node.id)
+
       within "#item-form" do
         click_on I18n.t("ss.buttons.save")
       end

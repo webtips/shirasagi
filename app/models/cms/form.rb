@@ -48,7 +48,7 @@ class Cms::Form
   end
 
   def column_names
-    @column_names ||= columns.order_by(order: 1).filter_map { |col| col.name }
+    @column_names ||= columns.order_by(order: 1).map { |col| col.name }.compact
   end
 
   def columns_hash
