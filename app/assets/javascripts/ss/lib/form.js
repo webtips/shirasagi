@@ -15,7 +15,7 @@ this.SS_Form = (function () {
       var el = $(this);
       var name = el.attr('class').replace(/.* (example-.*?)( |$)/, '$1');
       var form = el.closest('.form-example');
-      form.find(`.form-example-body.${name}`).slideToggle('fast');
+      form.find('.form-example-body.' + name).slideToggle('fast');
     });
   };
 
