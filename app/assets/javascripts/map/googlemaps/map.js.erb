@@ -175,6 +175,12 @@ this.Googlemaps_Map = (function () {
     });
 
     Googlemaps_Map.adjustMarkerBounds(Googlemaps_Map.markers.length, markerBounds);
+
+    var clusterMarkers = $.map(Googlemaps_Map.markers, function(data) {
+      return data.marker;
+    });
+    var image = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m";
+    var markerClusterer = new MarkerClusterer(Googlemaps_Map.map, clusterMarkers, { imagePath: image });
   };
 
   Googlemaps_Map.setKmlLayer = function (url) {
