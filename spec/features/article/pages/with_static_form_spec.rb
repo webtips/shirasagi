@@ -175,7 +175,7 @@ describe 'article_pages', type: :feature, dbscope: :example, js: true do
         expect(item.column_values.find_by(column_id: column9.id).page_id).to eq column9_page_id
         expect(item.backups.count).to eq 1
       end
-      expect(SS::File.all.unscoped.count).to eq 2
+      expect(SS::File.all.unscoped.count).to eq 1
 
       #
       # Update
@@ -244,7 +244,7 @@ describe 'article_pages', type: :feature, dbscope: :example, js: true do
         expect(item.column_values.find_by(column_id: column9.id).page_id).to eq column9_page_id2
         expect(item.backups.count).to eq 2
       end
-      expect(SS::File.all.unscoped.count).to eq 2
+      expect(SS::File.all.unscoped.count).to eq 1
 
       #
       # Delete
