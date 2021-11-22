@@ -13,6 +13,8 @@ describe "facility_images", type: :feature, dbscope: :example, js: true do
     let(:order) { rand(1..10) }
     let(:image_alt) { unique_id }
     let(:image_comment) { Array.new(2) { unique_id } }
+    let(:image_thumb_width) { SS::ImageConverter::DEFAULT_THUMB_WIDTH * 2 }
+    let(:image_thumb_height) { SS::ImageConverter::DEFAULT_THUMB_HEIGHT * 2 }
     let(:name2) { unique_id }
 
     it do
@@ -46,6 +48,8 @@ describe "facility_images", type: :feature, dbscope: :example, js: true do
 
         fill_in "item[image_alt]", with: image_alt
         fill_in "item[image_comment]", with: image_comment.join("\n")
+        fill_in "item[image_thumb_width]", with: image_thumb_width
+        fill_in "item[image_thumb_height]", with: image_thumb_height
 
         click_on I18n.t("ss.buttons.publish_save")
       end
@@ -58,8 +62,8 @@ describe "facility_images", type: :feature, dbscope: :example, js: true do
       expect(image_page.image).to be_present
       expect(image_page.image_alt).to eq image_alt
       expect(image_page.image_comment).to eq image_comment.join("\r\n")
-      expect(image_page.image_thumb_width).to eq SS::ImageConverter::DEFAULT_THUMB_WIDTH
-      expect(image_page.image_thumb_height).to eq SS::ImageConverter::DEFAULT_THUMB_HEIGHT
+      expect(image_page.image_thumb_width).to eq image_thumb_width
+      expect(image_page.image_thumb_height).to eq image_thumb_height
       image = image_page.image
       expect(image.name).to eq "keyvisual.jpg"
       expect(image.filename).to eq "keyvisual.jpg"
@@ -80,15 +84,15 @@ describe "facility_images", type: :feature, dbscope: :example, js: true do
         expect(page).to have_css(".summary.image img[alt='#{image_page.image_alt}']")
 
         info = image_element_info(first(".summary.image img[alt='#{image_page.image_alt}']"))
-        expect(info[:width]).to eq 120
-        expect(info[:height]).to eq 35
+        expect(info[:width]).to eq image_thumb_width
+        expect(info[:height]).to eq 71
       end
       within "#facility-images" do
         expect(page).to have_css("img[alt='#{image_page2.image_alt}']")
 
         info = image_element_info(first("img[alt='#{image_page2.image_alt}']"))
-        expect(info[:width]).to eq 90
-        expect(info[:height]).to eq 90
+        expect(info[:width]).to eq [ SS::ImageConverter::DEFAULT_THUMB_WIDTH, SS::ImageConverter::DEFAULT_THUMB_HEIGHT ].min
+        expect(info[:height]).to eq [ SS::ImageConverter::DEFAULT_THUMB_WIDTH, SS::ImageConverter::DEFAULT_THUMB_HEIGHT ].min
       end
 
       #
@@ -120,6 +124,7 @@ describe "facility_images", type: :feature, dbscope: :example, js: true do
       expect(page).to have_css('#notice', text: I18n.t('ss.notice.deleted'))
 
       expect { image_page.reload }.to raise_error Mongoid::Errors::DocumentNotFound
+      expect { image.reload }.to raise_error Mongoid::Errors::DocumentNotFound
     end
   end
 end
