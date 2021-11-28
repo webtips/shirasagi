@@ -12,6 +12,9 @@ gem 'mini_racer'
 gem 'jbuilder'
 gem 'sdoc', group: :doc
 
+# Transpiler
+gem 'simpacker'
+
 # Server
 gem 'unicorn'
 gem 'unicorn-worker-killer'

@@ -594,6 +594,8 @@ GEM
       faraday (>= 0.17.3, < 2.0)
       jwt (>= 1.5, < 3.0)
       multi_json (~> 1.10)
+    simpacker (1.2.0)
+      railties (>= 4.2)
     simple_oauth (0.3.1)
     simplecov (0.21.2)
       docile (~> 1.1)
@@ -787,6 +789,7 @@ DEPENDENCIES
   scss_lint
   sdoc
   selenium-webdriver
+  simpacker
   simplecov
   simplecov-csv
   simplecov-html
