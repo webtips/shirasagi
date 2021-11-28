@@ -6,18 +6,29 @@ export default abstract class Initializer {
 
   static initialize(): Promise<void> {
     if (Initializer.initialized) {
-      return new Promise((resolve) => resolve());
+      return Promise.resolve();
     }
     Initializer.initialized = true;
 
+    const instances: Initializer[] = [];
+    Initializer.initializers.forEach(constructor => {
+      instances.push(new constructor());
+    })
+
     const promises: Promise<void>[] = [];
-    Initializer.initializers.forEach((constructor) => {
-      const initializer: Initializer = new constructor();
-      promises.push(initializer.initialize());
+    instances.forEach(instance => {
+      promises.push(instance.initialize());
     })
 
     return new Promise((resolve, reject) => {
       Promise.all<void>(promises)
+        .then(() => {
+          promises.length = 0;
+          instances.forEach(instance => {
+            promises.push(instance.afterInitialize());
+          })
+          return Promise.all<void>(promises)
+        })
         .then(() => resolve())
         .catch(err => reject(err))
     });
@@ -33,9 +44,17 @@ export default abstract class Initializer {
       const constructor = module.default as any
       if (typeof constructor == "function") {
         Initializer.register(constructor)
+      } else {
+        console.info(`${key}: there isn't constructor`)
       }
     })
   }
 
-  abstract initialize(): Promise<void>;
+  initialize(): Promise<void> {
+    return Promise.resolve()
+  }
+
+  afterInitialize(): Promise<void> {
+    return Promise.resolve()
+  }
 }
