@@ -1,4 +1,9 @@
 {
   "name": "shirasagi",
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "webpack": "^5.64.4",
+    "webpack-assets-manifest": "^5.0.6",
+    "webpack-cli": "^4.9.1"
+  }
 }

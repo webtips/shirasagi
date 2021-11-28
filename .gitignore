@@ -46,3 +46,5 @@ ehthumbs.db
 
 # test-queue
 .test_queue_stats
+
+/node_modules
