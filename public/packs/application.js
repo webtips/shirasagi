@@ -1,6 +1,38 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./app/javascript/initializers sync recursive (\\.js|\\.ts)$":
+/*!********************************************************!*\
+  !*** ./app/javascript/initializers/ sync (\.js|\.ts)$ ***!
+  \********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var map = {
+	"./dom.ts": "./app/javascript/initializers/dom.ts"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./app/javascript/initializers sync recursive (\\.js|\\.ts)$";
+
+/***/ }),
+
 /***/ "./node_modules/core-js/features/index.js":
 /*!************************************************!*\
   !*** ./node_modules/core-js/features/index.js ***!
@@ -22011,11 +22043,84 @@ $({ target: 'URL', proto: true, enumerable: true }, {
 /*!***************************************!*\
   !*** ./app/javascript/application.ts ***!
   \***************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ss_initializer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ss/initializer */ "./app/javascript/ss/initializer.ts");
 
-console.log("hello");
+_ss_initializer__WEBPACK_IMPORTED_MODULE_0__["default"].load(__webpack_require__("./app/javascript/initializers sync recursive (\\.js|\\.ts)$"));
+const promise = _ss_initializer__WEBPACK_IMPORTED_MODULE_0__["default"].initialize();
+promise.then(() => console.log("hello"));
+
+
+/***/ }),
+
+/***/ "./app/javascript/initializers/dom.ts":
+/*!********************************************!*\
+  !*** ./app/javascript/initializers/dom.ts ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Dom)
+/* harmony export */ });
+/* harmony import */ var _ss_initializer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ss/initializer */ "./app/javascript/ss/initializer.ts");
+
+class Dom extends _ss_initializer__WEBPACK_IMPORTED_MODULE_0__["default"] {
+    initialize() {
+        return new Promise(resolve => window.addEventListener('DOMContentLoaded', () => resolve()));
+    }
+}
+
+
+/***/ }),
+
+/***/ "./app/javascript/ss/initializer.ts":
+/*!******************************************!*\
+  !*** ./app/javascript/ss/initializer.ts ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Initializer)
+/* harmony export */ });
+class Initializer {
+    static initialize() {
+        if (Initializer.initialized) {
+            return new Promise((resolve) => resolve());
+        }
+        Initializer.initialized = true;
+        const promises = [];
+        Initializer.initializers.forEach((constructor) => {
+            const initializer = new constructor();
+            promises.push(initializer.initialize());
+        });
+        return new Promise((resolve, reject) => {
+            Promise.all(promises)
+                .then(() => resolve())
+                .catch(err => reject(err));
+        });
+    }
+    static register(constructor) {
+        Initializer.initializers.push(constructor);
+    }
+    static load(context) {
+        context.keys().forEach(key => {
+            const module = context(key);
+            const constructor = module.default;
+            if (typeof constructor == "function") {
+                Initializer.register(constructor);
+            }
+        });
+    }
+}
+Initializer.initialized = false;
+Initializer.initializers = [];
 
 
 /***/ })
@@ -22047,6 +22152,18 @@ console.log("hello");
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/global */
 /******/ 	(() => {
 /******/ 		__webpack_require__.g = (function() {
@@ -22057,6 +22174,22 @@ console.log("hello");
 /******/ 				if (typeof window === 'object') return window;
 /******/ 			}
 /******/ 		})();
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
 /******/ 	})();
 /******/ 	
 /************************************************************************/
