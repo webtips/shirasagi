@@ -1,7 +1,20 @@
 {
   "name": "shirasagi",
   "private": true,
+  "dependencies": {
+    "core-js": "^3.19.1",
+    "stimulus": "^3.0.1"
+  },
   "devDependencies": {
+    "@types/webpack-env": "^1.16.3",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "eslint": "^8.3.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.2",
     "webpack": "^5.64.4",
     "webpack-assets-manifest": "^5.0.6",
     "webpack-cli": "^4.9.1"
