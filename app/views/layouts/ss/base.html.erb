@@ -18,6 +18,7 @@
 %>
 <title><%= title %></title>
 <%= safe_join controller.stylesheets.map { |path| stylesheet_link_tag(path, media: "all") }, "\n" %>
+<%= javascript_pack_tag 'application', defer: true %>
 <%= safe_join controller.javascripts.map { |path| javascript_include_tag(path) }, "\n" %>
 <!--[if lt IE 9]>
 <script src="/assets/js/html5.js"></script>
