@@ -189,7 +189,7 @@ module Map::MapHelper
 
   def render_marker_info(item)
     h = []
-    h << %(<div class="maker-info" data-id="#{item.id}">)
+    h << %(<div class="marker-info" data-id="#{item.id}">)
     h << %(<p class="name">#{item.name}</p>)
     h << %(<p class="address">#{item.address}</p>) if item.try(:address)
     h << %(<p class="show">#{link_to t('ss.links.show'), item.url}</p>)
