@@ -54,11 +54,9 @@ class Article::Agents::Nodes::MapSearchController < ApplicationController
       image_id = image_ids.try(:first)
       image_url = SS::File.where(id: image_id).first.try(:url) if image_id.present?
 
-      marker_info = view_context.render_marker_info(item)
-
       item.map_points.each do |point|
         point[:id] = item.id
-        point[:html] = marker_info
+        point[:html] = view_context.render_marker_info(item, point)
         point[:category] = category_ids
         point[:image] = image_url if image_url.present?
         @markers.push point
