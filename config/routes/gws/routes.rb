@@ -52,6 +52,10 @@ Rails.application.routes.draw do
       match :download_all, on: :collection, via: %i[get post]
       match :import, on: :collection, via: %i[get post]
     end
+    resources :user_occupations, concerns: [:deletion] do
+      match :download_all, on: :collection, via: %i[get post]
+      match :import, on: :collection, via: %i[get post]
+    end
     resources :roles, concerns: [:deletion, :download, :import]
     resources :sys_notices, only: [:index, :show] do
       get :frame_content, on: :member
@@ -74,6 +78,7 @@ Rails.application.routes.draw do
       get "groups" => "groups#index"
       get "users" => "users#index"
       get "user_titles" => "user_titles#index"
+      get "user_occupations" => "user_occupations#index"
       get "facilities" => "facilities#index"
       post "reminders" => "reminders#create"
       delete "reminders" => "reminders#destroy"
