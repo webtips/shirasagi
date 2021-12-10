@@ -24,6 +24,13 @@
           { class: "submit-on-change" } %>
       </dd>
 
+      <dt><%= @model.t :occupation_ids %></dt>
+      <dd>
+        <%= f.select :occupation_ids, @model.new(cur_site: @cur_site).occupation_id_options,
+          { selected: params[:s].try(:[], :occupation_ids), include_blank: true },
+          { class: "submit-on-change" } %>
+      </dd>
+
       <dt><%= t "ss.keyword" %></dt>
       <dd>
         <%= f.text_field :keyword, value: params[:s].try(:[], :keyword) %>

@@ -31,7 +31,7 @@ class Gws::UserOccupation
   end
 
   def users
-    Gws::User.in(title_ids: self.id)
+    Gws::User.in(occupation_ids: self.id)
   end
 
   private
